@@ -124,7 +124,7 @@ if (aftermovieVideo && aftermovieOverlay) {
   });
 }
 
-// ==================== Performance section – play on click ====================
+// ==================== Performance section – play on click/tap (mobile-friendly) ====================
 document.querySelectorAll('.perf-card').forEach((card) => {
   const video = card.querySelector('.perf-video');
   const overlay = card.querySelector('.perf-overlay');
@@ -138,15 +138,31 @@ document.querySelectorAll('.perf-card').forEach((card) => {
     overlay.classList.add('opacity-0', 'pointer-events-none');
   }
 
-  playBtn.addEventListener('click', (e) => {
-    e.preventDefault();
-    e.stopPropagation();
+  let touchHandled = false;
+
+  function togglePlay() {
     if (video.paused) {
       video.play().then(() => hideOverlay()).catch(() => {});
     } else {
       video.pause();
       showOverlay();
     }
+  }
+
+  // Touch (mobile) – must run before click to avoid 300ms delay
+  playBtn.addEventListener('touchend', (e) => {
+    e.preventDefault();
+    touchHandled = true;
+    togglePlay();
+    setTimeout(() => { touchHandled = false; }, 400);
+  }, { passive: false });
+
+  // Click (desktop + mobile fallback)
+  playBtn.addEventListener('click', (e) => {
+    e.preventDefault();
+    e.stopPropagation();
+    if (touchHandled) return;
+    togglePlay();
   });
 
   card.addEventListener('click', (e) => {

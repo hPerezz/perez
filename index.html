@@ -144,6 +144,17 @@
       .hero-image-small.fade-out {
         opacity: 0;
       }
+
+      /* Mini Takes – touch-friendly for mobile */
+      .perf-card {
+        touch-action: manipulation;
+        -webkit-tap-highlight-color: transparent;
+      }
+      .perf-play {
+        touch-action: manipulation;
+        cursor: pointer;
+        -webkit-tap-highlight-color: transparent;
+      }
     </style>
   </head>
   <body>
@@ -328,7 +339,7 @@ Baile Funk & Mega & House                </h3>
         
 
         <!-- ==================== PERFORMANCE ==================== -->
-        <section id="performance" class="py-24 bg-[#080808] border-y border-white/5">
+        <section id="performance" class="py-24 pb-32 md:pb-24 bg-[#080808] border-y border-white/5">
           <div class="container mx-auto px-4 md:px-6">
             <div class="reveal">
               <div class="flex flex-col md:flex-row items-end justify-between mb-16">

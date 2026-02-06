@@ -176,3 +176,21 @@ function closeLightbox() {
 document.addEventListener('keydown', (e) => {
   if (e.key === 'Escape') closeLightbox();
 });
+
+// ==================== Progressive Hero Image Loading ====================
+const heroSmall = document.getElementById('hero-small');
+const heroFull = document.getElementById('hero-full');
+
+if (heroFull) {
+  heroFull.addEventListener('load', () => {
+    heroFull.classList.add('loaded');
+    if (heroSmall) {
+      setTimeout(() => {
+        heroSmall.classList.add('fade-out');
+      }, 300);
+    }
+  });
+  
+  // Preload the full image
+  heroFull.src = heroFull.src;
+}
